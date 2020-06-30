@@ -9,6 +9,31 @@ from sphinx.locale import __
 from sphinx.util import logging, status_iterator
 logger= logging.getLogger(__name__)
 
+def setup_latex(app,config):
+    config.latex_elements['preamble']+=r"""
+\usepackage{natbib}
+
+\makeatletter
+\renewcommand\@biblabel[1]{}
+\renewenvironment{sphinxthebibliography}[1]
+     {\chapter*{\refname}%
+      \addcontentsline{toc}{chapter}{References}
+      \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
+      \list{}%
+           {\leftmargin0pt
+            \@openbib@code
+            \usecounter{enumiv}}%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+     {\def\@noitemerr
+       {\@latex@warning{Empty `thebibliography' environment}}%
+      \endlist}
+\makeatother
+        """
+
 def reformat_html(app):
     # Get all output files (http://stackoverflow.com/a/33640970/1447225)
     pages= []
