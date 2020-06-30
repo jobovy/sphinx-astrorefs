@@ -12,6 +12,8 @@ from pybtex.style.template import (
     tag, together, words, node, FieldIsMissing
 )
 import latexcodec
+from sphinx.util import logging
+logger= logging.getLogger(__name__)
 
 def decode_specialchars(input):
     return input.replace('{', '').replace('}', '').encode().decode('latex')
@@ -153,4 +155,5 @@ class AstroStyle(UnsrtStyle):
         return template
 
 def register():
+    logger.info("Registering astro-style pybtex formatting...")
     register_plugin('pybtex.style.formatting', 'astrostyle', AstroStyle)
