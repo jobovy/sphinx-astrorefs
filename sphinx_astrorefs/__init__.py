@@ -1,7 +1,9 @@
 from . import pybtex_astro
+from . import reformat
 __version__= "0.1.dev0"
 
 def setup(app):
+    app.connect("build-finished",reformat.reformat_output)
     pybtex_astro.register()
     return {
         "version": __version__,
