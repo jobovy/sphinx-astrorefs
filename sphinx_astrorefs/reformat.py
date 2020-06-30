@@ -145,6 +145,9 @@ def reformat_latex(app):
                         replace_ref= ' '.join(ref.split(' ')[:-1])
                         replace_ref+= '({})'.format(ref.split(' ')[-1])
                         line= line.replace(ref,replace_ref)
+                    elif '\chapter{References}' in line \
+                         or '\label{\detokenize{references:references}}\label{\detokenize{references::doc}}' in line:
+                        continue # remove these lines
                     outfile.write(line)
         shutil.move(tmp_path,latex_file)
     finally:
