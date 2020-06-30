@@ -1,4 +1,4 @@
-import pybtex_astro
+from . import pybtex_astro
 __version__= "0.1.dev0"
 
 def setup(app):
