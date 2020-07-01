@@ -158,6 +158,7 @@ def reformat_latex(app):
 def reformat_output(app,exception):
     if exception is not None: # don't do anything if sphinx failed
         return
+    logger.info('sphinx_astrorefs builder = {}... '.format(app.builder.name))
     if app.builder.name == 'html':
         reformat_html(app)
     elif app.builder.name == 'latex':
