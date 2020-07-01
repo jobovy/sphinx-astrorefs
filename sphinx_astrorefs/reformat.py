@@ -159,9 +159,11 @@ def reformat_output(app,exception):
     if exception is not None: # don't do anything if sphinx failed
         return
     logger.info('sphinx_astrorefs builder = {}... '.format(app.builder.name))
-    if app.builder.name == 'html':
+    if app.builder.name == 'html' \
+       or (app.builder.name == 'readthedocs' and 'html' in app.builder.outdir):
         reformat_html(app)
-    elif app.builder.name == 'latex':
+    elif app.builder.name == 'latex' \
+       or (app.builder.name == 'readthedocs' and 'latex' in app.builder.outdir):
         reformat_latex(app)
     else: # ignore other builders
         pass
