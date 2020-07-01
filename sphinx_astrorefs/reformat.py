@@ -35,6 +35,7 @@ def setup_latex(app,config):
         """
 
 def reformat_html(app):
+    logger.info('sphinx_astrorefs HTML reformatting... ')
     # Get all output files (http://stackoverflow.com/a/33640970/1447225)
     pages= []
     for doc in app.env.found_docs:
