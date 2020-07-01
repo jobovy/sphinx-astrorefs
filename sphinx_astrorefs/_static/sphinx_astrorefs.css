@@ -1,0 +1,6 @@
+.bibtex.label {
+    display:none !important;
+}
+.bibtex.label > .brackets{
+    display:none;
+}
