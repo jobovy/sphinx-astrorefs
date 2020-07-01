@@ -23,7 +23,7 @@ if datetime.datetime.now().year > 2020:
     copyright = u'2020 - {}, Jo Bovy'.format(datetime.datetime.now().year)
 else:
     copyright = u'2020, Jo Bovy'.format(datetime.datetime.now().year)
-author = 'Jo Bovy et al.'
+author = 'Jo Bovy'
 
 # The full version, including alpha/beta/rc tags
 release = '0.1.dev0'
