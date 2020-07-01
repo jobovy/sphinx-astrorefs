@@ -13,5 +13,6 @@ setuptools.setup(
     long_description_content_type='text/markdown',
     license='MIT',
     packages=["sphinx_astrorefs"],
+    package_data={"sphinx_astrorefs":["_static/sphinx_astrorefs.css"]},
     install_requires=["pybtex","latexcodec"]
 )
