@@ -1,5 +1,9 @@
 .bibtex.label {
-    display:none !important;
+    margin-top: 0 !important;
+    margin: 0 !important;
+    border-top: solid 0px !important;
+    padding: 0 !important;
+    visibility: hidden !important;
 }
 .bibtex.label > .brackets{
     display:none;
