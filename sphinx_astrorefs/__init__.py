@@ -2,7 +2,7 @@ from pathlib import Path
 from . import pybtex_astro
 from . import reformat
 from . import resolve_aas
-__version__= "0.3.dev0"
+__version__= "0.3"
 
 def append_static_path(app,config):
     config.html_static_path.append(
