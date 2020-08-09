@@ -78,15 +78,17 @@ def reformat_html(app):
                                     replace_ref= ' '.join(ref.split(' ')[:-1])
                                     replace_ref+= ' ({})'.format(ref.split(' ')[-1])
                                     line= line.replace('[{}]'.format(ref),
-                                                       replace_ref)
+                                                       replace_ref,1)
                                 else:
                                     line_adjust+= 2
-                                    line= line.replace('[{}]'.format(ref),ref)
+                                    line= line.replace('[{}]'.format(ref),ref,
+                                                       1)
                                 if rm_just_before:
                                     line_adjust+= 1
                                     line= line.replace(\
                                         ':<a class="bibtex reference internal"',
-                                        '<a class="bibtex reference internal"')
+                                        '<a class="bibtex reference internal"',
+                                        1)
                         outfile.write(line)
             shutil.move(tmp_path,page)
         except AttributeError as e:
@@ -128,15 +130,15 @@ def reformat_latex(app):
                             if parentheses:
                                 line_adjust+= 5
                                 line= line.replace('\sphinxcite{{{}}}'.format(ref),
-                                                   '\citet{{{}}}'.format(ref))
+                                                   '\citet{{{}}}'.format(ref),1)
                             else:
                                 line_adjust+= 3
                                 line= line.replace('\sphinxcite{{{}}}'.format(ref),
-                                                   '\citealt{{{}}}'.format(ref))
+                                                   '\citealt{{{}}}'.format(ref),1)
                             if rm_just_before:
                                 line_adjust+= 1
                                 line= line.replace(':\citealt{{{}}}'.format(ref),
-                                                   '\citealt{{{}}}'.format(ref))
+                                                   '\citealt{{{}}}'.format(ref),1)
                     elif 'bibitem' in line:
                         # Parses bibliography
                         g= re.search(re_bibitem,line)
@@ -145,7 +147,7 @@ def reformat_latex(app):
                             break
                         replace_ref= ' '.join(ref.split(' ')[:-1])
                         replace_ref+= '({})'.format(ref.split(' ')[-1])
-                        line= line.replace(ref,replace_ref)
+                        line= line.replace(ref,replace_ref,1)
                     elif '\chapter{References}' in line \
                          or '\label{\detokenize{references:references}}\label{\detokenize{references::doc}}' in line:
                         continue # remove these lines
