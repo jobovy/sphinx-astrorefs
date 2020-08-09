@@ -15,3 +15,13 @@ Astro-style references in Sphinx documents
 * **2020/08/09**: Version 0.3: Fixes a minor bug in 0.2 that caused multiple \citealt-style citations in a single line be parsed incorrectly. All reference replacements are now done one at a time, so multi-citation lines should now be handled correctly for all citation types.
 * **2020/07/22**: Version 0.2: Removes printing the Sphinx builder's name and makes the bibtex label invisible in the HTML reference section without removing the element entirely and thus removing the id link, thus fixing the HTML rendering of the reference section.
 * **2020/07/01**: Version 0.1.
+
+## Development notes
+
+To release a new version, do the following
+
+* ``bumpversion release`` and commit the result with ``git commit -m "Bump version to next release" .``
+* ``git tag `python -c "import sphinx_astrorefs; print(sphinx_astrorefs.__version__)"` && git push --tags``
+* `` rm -rf build && rm -rf dist/* && python setup.py sdist bdist_wheel``
+* ``twine upload dist/*`` for uploading to PyPI
+* ``bumpversion minor`` for setting up development version of next minor release or ``bumpversion major`` for a next major release. Then commit the result with ``git commit -m "Bump version to next development version" .``
