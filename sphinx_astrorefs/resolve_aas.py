@@ -11,6 +11,7 @@ aas_macros_dict= {
     '\\aj'      : 'Astron. J.',
     '\\mnras'   : 'Mon. Not. Roy. Astron. Soc.',
     '\\baas'    : 'Bull. AAS',
+    '\\bain'    : 'Bull. Astron. Inst. Netherlands',
     '\\aapr'    : 'Astron. & Astrophys. Rev.',
     '\\aaps'    : 'Astron. & Astrophys. Supp.',
     '\\aap'     : 'Astron. & Astrophys.',
