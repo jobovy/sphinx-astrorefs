@@ -1,5 +1,7 @@
 # pybtex_astro.py: Astro labeling and reference formatting
 import re
+from collections import Counter
+import string
 from pybtex.style.formatting.unsrt import Style as UnsrtStyle
 from pybtex.style.formatting import toplevel
 from pybtex.style.labels import BaseLabelStyle
@@ -22,6 +24,7 @@ def decode_specialchars(input):
 # author et al. year for more than two
 class AstroLabelStyle(BaseLabelStyle):
     def format_labels(self, sorted_entries):
+        all_labels= []
         for entry in sorted_entries:
             if len(entry.persons['author']) == 1:
                 out= '{} {}'.format(entry.persons['author'][0].last_names[0],
@@ -36,7 +39,21 @@ class AstroLabelStyle(BaseLabelStyle):
                 out= '{} et al. {}'.format(entry.persons['author'][0]\
                                                .last_names[0],
                                           entry.fields['year'])
-            yield decode_specialchars(out)
+            all_labels.append(decode_specialchars(out))
+        # Deal with duplicates, assuming at most 26 duplicates
+        dups= [item for item, count in Counter(all_labels).items()
+               if count > 1]
+        for dup in dups:
+            idxs= [ii for ii,x in enumerate(all_labels) if x == dup]
+            for idx,lett in zip(idxs,string.ascii_lowercase):
+                last_digit= re.match('.+([0-9])[^0-9]*$',all_labels[idx])
+                all_labels[idx]= all_labels[idx][:last_digit.start(1)+1]\
+                    +lett+all_labels[idx][last_digit.start(1)+1:]
+                sorted_entries[idx].fields['year']= \
+                    sorted_entries[idx].fields['year']+lett
+        # Yield output
+        for entry, label in zip(sorted_entries,all_labels):
+            yield label
 
 def dashify(text):
     dash_re = re.compile(r'-+')
