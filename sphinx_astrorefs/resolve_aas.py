@@ -19,6 +19,7 @@ aas_macros_dict= {
     '\\actaa'   : 'Acta Astronomica',
     '\\apss'    : 'Astrophys. & Space Sci.',
     '\\jcap'    : 'J. Cosmo & Astropart. Phys.',
+    '\\nat'     : 'Nature',
     '\\na'      : 'New Astron.',
     '\\pra'     : 'Phys. Rev. A',
     '\\prd'     : 'Phys. Rev. D',
@@ -27,8 +28,7 @@ aas_macros_dict= {
     '\\pasp'    : 'Pub. Astron. Soc. Pac.',
     '\\pasj'    : 'Pub. Astron. Soc. Japan',
     '\\rmxaa'   : 'Rev. Mex. Astron. & Astrofys.',
-    '\\ssr'     : 'Space Sci. Rev.',
-    '\\nat'     : 'Nature'
+    '\\ssr'     : 'Space Sci. Rev.'
     }
 
 def resolve(app,env,docnames):
