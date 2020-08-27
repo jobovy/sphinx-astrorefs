@@ -139,10 +139,13 @@ class AstroStyle(UnsrtStyle):
                 ]
 
     def get_article_template(self, e):
-        journal_and_volume = join [
-            tag('em') [self.format_journal(e)],' ',
-            tag('strong') [self.format_volume(e)]
-            ]
+        if 'volume' not in e.fields:
+            journal_and_volume = tag('em') [self.format_journal(e)]
+        else:
+            journal_and_volume = join [
+                tag('em') [self.format_journal(e)],' ',
+                tag('strong') [self.format_volume(e)]
+                ]
         template = toplevel [
             self.format_author(e),
             self.format_title(e, 'title'),
