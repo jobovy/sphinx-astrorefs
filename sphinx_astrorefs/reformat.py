@@ -10,6 +10,8 @@ from sphinx.util import logging, status_iterator
 logger= logging.getLogger(__name__)
 
 def setup_latex(app,config):
+    if not 'preamble' in config.latex_elements:
+        config.latex_elements['preamble']= ""
     config.latex_elements['preamble']+=r"""
 \usepackage{natbib}
 
