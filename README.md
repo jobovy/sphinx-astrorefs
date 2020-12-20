@@ -14,6 +14,7 @@ Astro-style references in Sphinx documents
 
 ## Changelog
 
+* **2020/12/19**: Version 0.5: Minor bug fixes (missing volume fields, latex preambe) and changes for ``sphinxcontrib.bibtex`` version 2.
 * **2020/08/25**: Version 0.4: Adds correct dealing with duplicate labels by adding a letter ('a', 'b', ...) to the year and added the remainder of the AAS macros so they are now all correctly resolved.
 * **2020/08/09**: Version 0.3: Fixes a minor bug in 0.2 that caused multiple \citealt-style citations in a single line be parsed incorrectly. All reference replacements are now done one at a time, so multi-citation lines should now be handled correctly for all citation types.
 * **2020/07/22**: Version 0.2: Removes printing the Sphinx builder's name and makes the bibtex label invisible in the HTML reference section without removing the element entirely and thus removing the id link, thus fixing the HTML rendering of the reference section.
