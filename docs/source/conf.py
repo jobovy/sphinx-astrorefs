@@ -42,6 +42,10 @@ extensions = ['sphinx_rtd_theme',
               'sphinx_astrorefs'
 ]
 
+# sphinxcontrib.bib
+bibtex_bibfiles= ['references.bib']
+bibtex_encoding= 'latin'
+
 # sphinx_astrorefs
 astrorefs_resolve_aas_macros= True
 astrorefs_resolve_aas_macros_infile= 'refs.bib'
