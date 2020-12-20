@@ -1,6 +1,7 @@
 # Quick script to replace all AAS macros in a bibtex file
 import os.path
 from sphinx.errors import ExtensionError
+import sphinxcontrib.bibtex
 
 aas_macros_dict= {
     '\\apjsupp' : 'Astrophys. J. Supp.',
@@ -65,19 +66,21 @@ aas_macros_dict= {
     '\\procspie': 'Proc. SPIE'
     }
 
-def resolve(app,env,docnames):
+def resolve(app):
     if not app.config.astrorefs_resolve_aas_macros:
         return
     if app.config.astrorefs_resolve_aas_macros_infile is None \
        or app.config.astrorefs_resolve_aas_macros_outfile is None:
         raise ExtensionError('sphinx-astrorefs: when resolving AAS macros, need to give original and target bib file name as "astrorefs_resolve_aas_macros_infile" and "astrorefs_resolve_aas_macros_outfile"')
-    with open(os.path.join(env.srcdir,
+    with open(os.path.join(app.env.srcdir,
                         app.config.astrorefs_resolve_aas_macros_infile),'r') \
                       as infile:
-        with open(os.path.join(env.srcdir,
+        with open(os.path.join(app.env.srcdir,
                         app.config.astrorefs_resolve_aas_macros_outfile),'w') \
                         as outfile:
             for line in infile:
                 for key in aas_macros_dict.keys():
                     line= line.replace(key,aas_macros_dict[key])
                 outfile.write(line)
+    # Re-do this initialization to make sure the bibtex file is found
+    sphinxcontrib.bibtex.init_bibtex_cache(app)
