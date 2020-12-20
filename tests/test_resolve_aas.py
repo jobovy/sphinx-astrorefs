@@ -21,6 +21,10 @@ class MockSphinxConfig:
         self.astrorefs_resolve_aas_macros_outfile= \
             astrorefs_resolve_aas_macros_outfile
 
+class MockSphinxEnv:
+    def __init__(self,srcdir=None):
+        self.srcdir= srcdir
+
 class MockSphinxApp:
     def __init__(self,
                  astrorefs_resolve_aas_macros=False,
@@ -30,10 +34,7 @@ class MockSphinxApp:
      astrorefs_resolve_aas_macros=astrorefs_resolve_aas_macros,
      astrorefs_resolve_aas_macros_infile=astrorefs_resolve_aas_macros_infile,
      astrorefs_resolve_aas_macros_outfile=astrorefs_resolve_aas_macros_outfile)
-
-class MockSphinxEnv:
-    def __init__(self,srcdir=None):
-        self.srcdir= srcdir
+        self.env= MockSphinxEnv(srcdir='./')
         
 def test_resolve_aas():
     # Generate file to be resolved and the truth file
@@ -53,8 +54,7 @@ def test_resolve_aas():
         app= MockSphinxApp(astrorefs_resolve_aas_macros=True,
                            astrorefs_resolve_aas_macros_infile=resolve_file,
                            astrorefs_resolve_aas_macros_outfile=resolved_file)
-        env= MockSphinxEnv(srcdir='./')
-        resolve_aas.resolve(app,env,None)
+        resolve_aas.resolve(app)
         # Now check resolved against truth
         assert filecmp.cmp(resolved_file,truth_file)
     except:
@@ -85,8 +85,7 @@ def test_resolve_aas_false():
         app= MockSphinxApp(astrorefs_resolve_aas_macros=False,
                            astrorefs_resolve_aas_macros_infile=resolve_file,
                            astrorefs_resolve_aas_macros_outfile=resolved_file)
-        env= MockSphinxEnv(srcdir='./')
-        resolve_aas.resolve(app,env,None)
+        resolve_aas.resolve(app)
         assert not os.path.exists(resolved_file)
     except:
         raise
@@ -102,7 +101,6 @@ def test_resolve_aas_error():
     app= MockSphinxApp(astrorefs_resolve_aas_macros=True,
                        astrorefs_resolve_aas_macros_infile=None,
                        astrorefs_resolve_aas_macros_outfile=None)
-    env= MockSphinxEnv(srcdir='./')
     with pytest.raises(ExtensionError):
-        resolve_aas.resolve(app,env,None)
+        resolve_aas.resolve(app)
     return None

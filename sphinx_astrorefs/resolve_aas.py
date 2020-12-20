@@ -83,4 +83,5 @@ def resolve(app):
                     line= line.replace(key,aas_macros_dict[key])
                 outfile.write(line)
     # Re-do this initialization to make sure the bibtex file is found
-    sphinxcontrib.bibtex.init_bibtex_cache(app)
+    if hasattr('app.config','bibtex_bibfiles'):
+        sphinxcontrib.bibtex.init_bibtex_cache(app)
