@@ -1,7 +1,6 @@
 # Quick script to replace all AAS macros in a bibtex file
 import os.path
 from sphinx.errors import ExtensionError
-import sphinxcontrib.bibtex
 
 aas_macros_dict= {
     '\\apjsupp' : 'Astrophys. J. Supp.',
@@ -82,6 +81,3 @@ def resolve(app):
                 for key in aas_macros_dict.keys():
                     line= line.replace(key,aas_macros_dict[key])
                 outfile.write(line)
-    # Re-do this initialization to make sure the bibtex file is found
-    if hasattr(app.config,'bibtex_bibfiles'):
-        sphinxcontrib.bibtex.init_bibtex_cache(app)
