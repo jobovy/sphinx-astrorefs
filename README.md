@@ -14,6 +14,7 @@ Astro-style references in Sphinx documents
 
 ## Changelog
 
+* **2021/01/06**: Version 0.7: Further changes for ``sphinxcontrib.bibtex`` version 2.1, because those in version 0.6 were not correct. As in version 0.6, this package is compatible with ``sphinxcontrib.bibtex`` v1 and v2.1 and beyond, but not v2.0.
 * **2021/01/06**: Version 0.6: Small changes for ``sphinxcontrib.bibtex`` version 2.1 (no longer required to run sphinx twice or to commit ``bibtex.json``). This package is compatible with ``sphinxcontrib.bibtex`` v1 and v2.1 and beyond, but not v2.0.
 * **2020/12/19**: Version 0.5: Minor bug fixes (missing volume fields, latex preambe) and changes for ``sphinxcontrib.bibtex`` version 2.
 * **2020/08/25**: Version 0.4: Adds correct dealing with duplicate labels by adding a letter ('a', 'b', ...) to the year and added the remainder of the AAS macros so they are now all correctly resolved.
