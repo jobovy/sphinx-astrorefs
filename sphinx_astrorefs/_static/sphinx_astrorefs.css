@@ -1,3 +1,4 @@
+/* sphinxcontrib.bibtex version 1 */
 .bibtex.label {
     margin-top: 0 !important;
     margin: 0 !important;
@@ -6,5 +7,16 @@
     visibility: hidden !important;
 }
 .bibtex.label > .brackets{
+    display:none;
+}
+/* sphinxcontrib.bibtex version 2 */
+.citation > .label {
+    margin-top: 0 !important;
+    margin: 0 !important;
+    border-top: solid 0px !important;
+    padding: 0 !important;
+    visibility: hidden !important;
+}
+.citation > .label > .brackets{
     display:none;
 }

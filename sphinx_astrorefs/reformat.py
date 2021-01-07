@@ -1,13 +1,19 @@
 # reformat.py: reformat the HTML and LaTeX output to be more 'astro' like
-import sys
 import os, os.path
 import shutil
-import glob
 import tempfile
 import re
 from sphinx.locale import __
 from sphinx.util import logging, status_iterator
 logger= logging.getLogger(__name__)
+# No sphinxcontrib.bibtex.__version__, so need to version check the hard way...
+_SPHX_BIBTEX_VERSION= 2
+try:
+    import sphinxcontrib.bibtex.domain
+except ImportError:
+    _SPHX_BIBTEX_VERSION= 1
+_HREF_CLASS= "bibtex reference internal" if _SPHX_BIBTEX_VERSION == 1 \
+    else "reference internal"
 
 def setup_latex(app,config):
     if not 'preamble' in config.latex_elements:
@@ -46,7 +52,10 @@ def reformat_html(app):
         target_filename= os.path.abspath(target_filename)
         pages.append(target_filename)
     # Compile reg. expression
-    re_bibtex_links= re.compile(r'<a class="bibtex reference internal" href="([^"]*)" id="([^"]*)">\[([^\]]*)\]</a>')
+    if _SPHX_BIBTEX_VERSION == 1:
+        re_bibtex_links= re.compile(r'<a class="{}" href="([^"]*)" id="([^"]*)">\[([^\]]*)\]</a>'.format(_HREF_CLASS))
+    else:
+        re_bibtex_links= re.compile(r'<span id="([^"]*)">\[<a class="{}" href="([^"]*)"><span>([^\]]*)</span></a>\]</span>'.format(_HREF_CLASS))
     # Reformat all pages
     for page in status_iterator(pages, __('sphinx_astrorefs reformatting... '),
                                 "blue",
@@ -57,7 +66,7 @@ def reformat_html(app):
             with open(page,'r') as infile: 
                 with open(tmp_path,'w') as outfile:
                     for line in infile:
-                        if 'class="bibtex reference internal"' in line:
+                        if 'class="{}"'.format(_HREF_CLASS) in line:
                             line_adjust= 0 # account for the fact that g.start
                             # starts to deviate from the actual start, because
                             # we are editing the line
@@ -79,17 +88,23 @@ def reformat_html(app):
                                 if parentheses:
                                     replace_ref= ' '.join(ref.split(' ')[:-1])
                                     replace_ref+= ' ({})'.format(ref.split(' ')[-1])
-                                    line= line.replace('[{}]'.format(ref),
-                                                       replace_ref,1)
                                 else:
+                                    replace_ref= ref
                                     line_adjust+= 2
-                                    line= line.replace('[{}]'.format(ref),ref,
-                                                       1)
+                                if _SPHX_BIBTEX_VERSION == 1:
+                                    line= line.replace('[{}]'.format(ref),
+                                                           replace_ref,1)
+                                else:
+                                    replace_ref= '<a class="{}" href="{}" id="{}">{}</a>'.format(_HREF_CLASS,g.group(2),g.group(1),replace_ref)
+                                    line= line.replace('<span id="{}">[<a class="{}" href="{}"><span>{}</span></a>]</span>'.format(g.group(1),_HREF_CLASS,g.group(2),g.group(3)),
+                                                           replace_ref,1)
+                                    # Taking out 2x <span></span>
+                                    line_adjust+= 26
                                 if rm_just_before:
                                     line_adjust+= 1
                                     line= line.replace(\
-                                        ':<a class="bibtex reference internal"',
-                                        '<a class="bibtex reference internal"',
+                                        ':<a class="{}"'.format(_HREF_CLASS),
+                                        '<a class="{}"'.format(_HREF_CLASS),
                                         1)
                         outfile.write(line)
             shutil.move(tmp_path,page)

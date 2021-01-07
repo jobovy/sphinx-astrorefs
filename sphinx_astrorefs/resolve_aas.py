@@ -81,3 +81,6 @@ def resolve(app):
                 for key in aas_macros_dict.keys():
                     line= line.replace(key,aas_macros_dict[key])
                 outfile.write(line)
+    # Re-do this initialization to make sure the bibtex file is found
+    if hasattr(app.config,'bibtex_bibfiles'):
+        app.env.get_domain('cite').__init__(app.env)
