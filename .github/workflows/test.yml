@@ -19,6 +19,8 @@ jobs:
         pip install pytest
         pip install pytest-cov
     - name: Run tests
-      run: pytest -v tests/ --cov sphinx_astrorefs
+      run: pytest -v tests/ --cov=sphinx_astrorefs/ --cov-report=term --cov-report=xml
     - uses: codecov/codecov-action@v2
+      with:
+        files: ./coverage.xml
     
