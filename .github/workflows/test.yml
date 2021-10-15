@@ -21,5 +21,6 @@ jobs:
     - name: Run tests
       run: pytest -v tests/ --cov=sphinx_astrorefs/ --cov-report=term --cov-report=xml
     - uses: codecov/codecov-action@v2
-      files: ./coverage.xml
+      with:
+        files: ./coverage.xml
     
