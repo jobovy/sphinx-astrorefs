@@ -2,7 +2,7 @@
 Astro-style references in Sphinx documents
 
 ![Tests](https://github.com/jobovy/sphinx-astrorefs/workflows/Tests/badge.svg)
-[![codecov](https://codecov.io/gh/jobovy/sphinx-astrorefs/branch/master/graph/badge.svg)](https://codecov.io/gh/jobovy/sphinx-astrorefs)
+[![codecov](https://codecov.io/gh/jobovy/sphinx-astrorefs/branch/main/graph/badge.svg)](https://codecov.io/gh/jobovy/sphinx-astrorefs)
 [![Documentation Status](https://readthedocs.org/projects/sphinx-astrorefs/badge/?version=latest)](https://sphinx-astrorefs.readthedocs.io/en/latest/?badge=latest)
 [![image](http://img.shields.io/pypi/v/sphinx-astrorefs.svg)](https://pypi.python.org/pypi/sphinx-astrorefs/)
 
