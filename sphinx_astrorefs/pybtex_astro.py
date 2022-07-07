@@ -16,6 +16,7 @@ from pybtex.style.template import (
 import latexcodec
 from sphinx.util import logging
 logger= logging.getLogger(__name__)
+_arxiv_url= None
 
 def decode_specialchars(input):
     return input.replace('{', '').replace('}', '').encode().decode('latex')
@@ -132,7 +133,7 @@ class AstroStyle(UnsrtStyle):
         else:
             return href [
                 join [
-                    'https://arxiv.org/abs/',
+                    f'https://{_arxiv_url}/abs/',
                     field('eprint', raw=True)
                     ],
                 field('pages',apply_func=dashify)
@@ -176,4 +177,12 @@ class AstroStyle(UnsrtStyle):
 
 def register():
     logger.info("Registering astro-style pybtex formatting...")
+    register_plugin('pybtex.style.formatting', 'astrostyle', AstroStyle)
+
+def register_with_config(app,config):
+    logger.info("Registering astro-style pybtex formatting...")
+    if not config.astrorefs_arxiv_url.lower() == 'arxiv.org':
+        logger.info(f"Using arxiv URL {config.astrorefs_arxiv_url}")
+    global _arxiv_url
+    _arxiv_url= config.astrorefs_arxiv_url
     register_plugin('pybtex.style.formatting', 'astrostyle', AstroStyle)
