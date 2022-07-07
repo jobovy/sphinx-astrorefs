@@ -6,9 +6,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v4
       with:
         python-version: 3.8
     - name: Install package
@@ -20,7 +20,7 @@ jobs:
         pip install pytest-cov
     - name: Run tests
       run: pytest -v tests/ --cov=sphinx_astrorefs/ --cov-report=term --cov-report=xml
-    - uses: codecov/codecov-action@v2
+    - uses: codecov/codecov-action@v3
       with:
         files: ./coverage.xml
     
