@@ -29,6 +29,6 @@ To release a new version, do the following
 
 * ``bumpversion release`` and commit the result with ``git commit -m "Bump version to next release" .``
 * ``git tag `python -c "import sphinx_astrorefs; print(sphinx_astrorefs.__version__)"` && git push --tags``
-* `` rm -rf build && rm -rf dist/* && python setup.py sdist bdist_wheel``
+* `` rm -rf build && rm -rf dist/* && python -m build``
 * ``twine upload dist/*`` for uploading to PyPI
 * ``bumpversion minor`` for setting up development version of next minor release or ``bumpversion major`` for a next major release. Then commit the result with ``git commit -m "Bump version to next development version" .``
