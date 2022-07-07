@@ -14,6 +14,6 @@ setuptools.setup(
     license='MIT',
     packages=["sphinx_astrorefs"],
     package_data={"sphinx_astrorefs":["_static/sphinx_astrorefs.css"]},
-    install_requires=["sphinx","sphinxcontrib-bibtex",
+    install_requires=["sphinx","sphinxcontrib-bibtex==2.1.4",
                       "pybtex","latexcodec"]
 )
