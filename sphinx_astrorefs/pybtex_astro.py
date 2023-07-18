@@ -139,6 +139,27 @@ class AstroStyle(UnsrtStyle):
                 field('pages',apply_func=dashify)
                 ]
 
+    def format_publisher(self,e):
+        if 'doi' not in e.fields:
+            return field('publisher')
+        else:
+            return href [
+                join [
+                    'https://doi.org/',
+                    field('doi', raw=True)
+                    ],
+                field('publisher')
+                ]
+
+    def format_publisher_address(self,e):
+        if 'adsurl' not in e.fields:
+            return field('address')
+        else:
+            return href [ 
+                field('adsurl',raw=True),
+                field('address')
+                ]
+        
     def get_article_template(self, e):
         if 'volume' not in e.fields:
             journal_and_volume = tag('em') [self.format_journal(e)]
@@ -166,12 +187,13 @@ class AstroStyle(UnsrtStyle):
             self.format_volume_and_series(e),
             sentence [
                 join [
-                    field('publisher'),
-                    optional [', ',field('address')],
+                    self.format_publisher(e),
+                    ', ',
+                    self.format_publisher_address(e),
                     ' (',field('year'),')']
                 ],
             optional[ sentence [ self.format_isbn(e) ] ],
-            self.format_web_refs(e),
+            optional [ self.format_eprint(e) ],
         ]
         return template
 
