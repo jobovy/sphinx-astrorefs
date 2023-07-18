@@ -271,6 +271,25 @@ class AstroStyle(UnsrtStyle):
             ]
         ]
         return template
+    
+    def get_phdthesis_template(self, e):
+        template = toplevel [
+            sentence [self.format_names('author')],
+            self.format_btitle(e, 'title'),
+            sentence[
+                first_of [
+                    optional_field('type'),
+                    'PhD thesis',
+                ],
+                join [
+                    field('school'),
+                    ', ' if 'address' in e.fields else '',
+                    optional_field('address'),
+                    ' (',field('year'),')',
+                ]
+            ]
+        ]
+        return template    
 
 def register():
     logger.info("Registering astro-style pybtex formatting...")
