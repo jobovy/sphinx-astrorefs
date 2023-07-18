@@ -120,6 +120,34 @@ class AstroStyle(UnsrtStyle):
                 field('journal')
                 ]
 
+    def format_btitle(self,e, which_field, as_sentence=True):
+        formatted_title = tag('em') [ field(which_field) ]
+        if 'doi' not in e.fields and 'adsurl' in e.fields:
+            url  = field('adsurl',raw=True)
+        elif 'doi' in e.fields:
+            url = join [
+                'https://doi.org/',
+                field('doi', raw=True)
+                ]
+        else:
+            url = None
+        if url is None and as_sentence:
+            return sentence [formatted_title ]
+        elif url is None:
+            return formatted_title
+        elif as_sentence:
+            return sentence [
+                href [
+                    url,
+                    formatted_title
+                    ]
+                ]
+        else:
+            return href [
+                url,
+                formatted_title
+                ]
+
     def format_volume(self,e):
         if 'adsurl' not in e.fields:
             return field('volume')
@@ -160,6 +188,26 @@ class AstroStyle(UnsrtStyle):
                 field('address')
                 ]
         
+    def format_volume_and_series(self, e, as_sentence=True):
+        if as_sentence:
+            return sentence [
+                join [
+                    optional [ 
+                        field('series') ,
+                        ' ',
+                        tag('strong') [ field('volume') ] 
+                    ]
+                ]
+            ]
+        else:
+            return join [
+                optional [ 
+                    field('series') ,
+                    ' ',
+                    tag('strong') [ field('volume') ]
+                ]
+            ]
+        
     def get_article_template(self, e):
         if 'volume' not in e.fields:
             journal_and_volume = tag('em') [self.format_journal(e)]
@@ -194,6 +242,33 @@ class AstroStyle(UnsrtStyle):
                 ],
             optional[ sentence [ self.format_isbn(e) ] ],
             optional [ self.format_eprint(e) ],
+        ]
+        return template
+    
+    def get_inproceedings_template(self, e):
+        template = toplevel [
+            sentence [self.format_names('author')],
+            self.format_title(e, 'title'),
+            words [
+                'In',
+                sentence [
+                    optional[ self.format_editor(e, as_sentence=False) ],
+                    self.format_btitle(e, 'booktitle', as_sentence=False),
+                    optional [
+                        href [
+                            field('adsurl',raw=True),
+                            self.format_volume_and_series(e, as_sentence=False)
+                        ]
+                        if 'adsurl' in e.fields and 'doi' in e.fields
+                        else
+                        self.format_volume_and_series(e, as_sentence=False)
+                    ],
+                    join [
+                        optional[ self.format_pages(e) ],
+                        ' (',field('year'),')'
+                    ]
+                ],
+            ]
         ]
         return template
 
