@@ -22,25 +22,20 @@ jobs:
   build_wheel:
     name: Build wheel
     runs-on: ubuntu-latest
-    strategy:
-      # Ensure that a wheel builder finishes even if another fails
-      fail-fast: false
-      matrix:
-        python: ["3.8", "3.9", "3.10", "3.11"]
     steps:
       - uses: actions/checkout@v3
       # Setup python
       - name: Set up Python
         uses: actions/setup-python@v4      
         with:
-            python-version: ${{ matrix.python }}        
+            python-version: 3.x       
       - name: Build wheels
         run: |
           pip install build
           python -m build --wheel --outdir wheelhouse/
       - uses: actions/upload-artifact@v3
         with:
-          name: Python-${{ matrix.python }}
+          name: Wheel
           path: ./wheelhouse/*.whl
   build_sdist:
     name: Build source directory for release
