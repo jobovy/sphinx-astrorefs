@@ -231,7 +231,7 @@ class AstroStyle(UnsrtStyle):
     def get_book_template(self, e):
         template = toplevel [
             self.format_author_or_editor(e),
-            self.format_btitle(e, 'title'),
+            sentence [ tag('em') [ field('title') ] ],
             self.format_volume_and_series(e),
             sentence [
                 join [
@@ -240,7 +240,6 @@ class AstroStyle(UnsrtStyle):
                     self.format_publisher_address(e),
                     ' (',field('year'),')']
                 ],
-            optional[ sentence [ self.format_isbn(e) ] ],
             optional [ self.format_eprint(e) ],
         ]
         return template
