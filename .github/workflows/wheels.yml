@@ -41,7 +41,7 @@ jobs:
           python -m build --wheel --outdir wheelhouse/
       - uses: actions/upload-artifact@v3
         with:
-          name: ${{ matrix.python }}
+          name: Python-${{ matrix.python }}
           path: ./wheelhouse/*.whl
   build_sdist:
     name: Build source directory for release
