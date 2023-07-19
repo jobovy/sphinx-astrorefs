@@ -1,0 +1,85 @@
+name: Wheel builder and uploader
+
+# Update on every push and PR to main, and upon release creation
+on:
+  push:
+    branches:
+      - main
+      - wheels
+    paths:
+      - '**'
+      - '!*'
+      - '*.py'
+      - '!tests/**'
+      - '!.github/**'
+      - '.github/workflows/wheels.yml'
+  pull_request:
+    branches:
+      - main
+  release:
+    types: [created]
+
+jobs:
+  build_wheel:
+    name: Build wheel
+    runs-on: ubuntu-latest
+    strategy:
+      # Ensure that a wheel builder finishes even if another fails
+      fail-fast: false
+      matrix:
+        python: ["3.8", "3.9", "3.10", "3.11"]
+    steps:
+      - uses: actions/checkout@v3
+      # Setup python
+      - name: Set up Python
+        uses: actions/setup-python@v4      
+        with:
+            python-version: ${{ matrix.python }}        
+      - name: Build wheels
+        run: |
+          pip install build
+          python -m build --wheel --outdir wheelhouse/
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.python }}
+          path: ./wheelhouse/*.whl
+  build_sdist:
+    name: Build source directory for release
+    if: github.event_name == 'release' && github.event.action == 'created'
+    runs-on: ubuntu-latest
+    steps:
+      # check-out this repository
+      - uses: actions/checkout@v3
+      # Setup python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+      - name: Build sdist
+        run: |
+          pip install build
+          python -m build --sdist
+      - uses: actions/upload-artifact@v3
+        with:
+          name: sdist
+          path: ./dist/*.tar.gz
+# Deploy wheels and sdist to PyPI (upon release creation)
+  deploy_pypi:
+    name: Deploy to PyPI
+    needs: [build_wheel, build_sdist]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release' && github.event.action == 'created'
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          mkdir tmp_wheelhouse
+          mkdir wheelhouse
+      - uses: actions/download-artifact@v3
+        with:
+          path: tmp_wheelhouse/
+      - run: find tmp_wheelhouse/ -mindepth 2 -type f -exec mv -i '{}' wheelhouse/ ';'
+      - name: Publish distribution to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.pypi_token }}
+          packages_dir: wheelhouse/
