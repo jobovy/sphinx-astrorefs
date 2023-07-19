@@ -26,7 +26,7 @@ else:
 author = 'Jo Bovy'
 
 # The full version, including alpha/beta/rc tags
-release = '0.10'
+release = '0.11.dev0'
 
 
 # -- General configuration ---------------------------------------------------
