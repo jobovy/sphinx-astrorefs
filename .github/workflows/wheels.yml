@@ -23,7 +23,7 @@ jobs:
     name: Build wheel
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       # Setup python
       - name: Set up Python
         uses: actions/setup-python@v4      
@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # check-out this repository
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       # Setup python
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'created'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: |
           mkdir tmp_wheelhouse
           mkdir wheelhouse
