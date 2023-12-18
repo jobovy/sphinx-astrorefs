@@ -33,7 +33,7 @@ jobs:
         run: |
           pip install build
           python -m build --wheel --outdir wheelhouse/
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: Wheel
           path: ./wheelhouse/*.whl
@@ -53,7 +53,7 @@ jobs:
         run: |
           pip install build
           python -m build --sdist
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: sdist
           path: ./dist/*.tar.gz
