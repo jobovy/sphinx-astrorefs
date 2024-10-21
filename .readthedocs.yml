@@ -12,7 +12,6 @@ formats:
   - pdf
 
 python:
-  version: 3
   install:
     - method: pip
       path: .
