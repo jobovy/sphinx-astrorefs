@@ -1,4 +1,4 @@
-sphinx>=2.4.4
+sphinx>=6.1.0
 IPython
 nbsphinx
 sphinx_rtd_theme

@@ -4,7 +4,8 @@ import shutil
 import tempfile
 import re
 from sphinx.locale import __
-from sphinx.util import logging, status_iterator
+from sphinx.util import logging
+from sphinx.util.display import status_iterator
 logger= logging.getLogger(__name__)
 # No sphinxcontrib.bibtex.__version__, so need to version check the hard way...
 _SPHX_BIBTEX_VERSION= 2
