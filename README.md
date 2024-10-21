@@ -14,6 +14,7 @@ Astro-style references in Sphinx documents
 
 ## Changelog
 
+* **2024/10/21**: Version 0.11: Fixed the use of a deprecated Sphinx function to maintain compatibility with the latest versions of Sphinx.
 * **2023/07/23**: Version 0.10: Fix small issue introduced in version 0.9 with how book titles were formatted. Also remove printing ISBN for books.
 * **2023/07/23**: Version 0.9: Perform better formatting of book, proceedings, and PhD thesis references that is also more consistent with how articles are formatted.
 * **2022/07/06**: Version 0.8: Pin ``sphinxcontrib.bibtex`` version to 2.1.4, because this code doesn't work for more recent versions (yet). Also allow the ``arxiv.org`` part of the arXiv URL to be changed through the ``astrorefs_arxiv_url`` configuration parameter.
