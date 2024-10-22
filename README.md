@@ -14,6 +14,7 @@ Astro-style references in Sphinx documents
 
 ## Changelog
 
+* **2024/10/22**: Version 0.13: Make use of status_iterator compatible again with earlier Sphinx versions.
 * **2024/10/21**: Version 0.12: Tweak CSS to make reference section indentation look a bit better. More tweaking may be required for your theme, but this seems to work okay with many common themes.
 * **2024/10/21**: Version 0.11: Fixed the use of a deprecated Sphinx function to maintain compatibility with the latest versions of Sphinx.
 * **2023/07/23**: Version 0.10: Fix small issue introduced in version 0.9 with how book titles were formatted. Also remove printing ISBN for books.
