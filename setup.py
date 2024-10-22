@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="sphinx-astrorefs",
-    version="0.12",
+    version="0.13.dev0",
     author="Jo Bovy",
     author_email="bovy@astro.utoronto.ca",
     description="Astro-style references in Sphinx documents",
