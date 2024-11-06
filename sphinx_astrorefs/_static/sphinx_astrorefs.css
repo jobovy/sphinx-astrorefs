@@ -15,7 +15,7 @@
     margin: 0 !important;
     border-top: solid 0px !important;
     padding: 0 !important;
-    display: none;
+    display: block;
 }
 /* These try to make the citation list look a bit nicer, not too indented */
 .citation[role="doc-biblioentry"] {
@@ -25,5 +25,8 @@
     margin-left: 0.5em !important;
 }
 .citation > .label > .brackets{
+    display:none;
+}
+.citation-list > .citation > .label {
     display:none;
 }
