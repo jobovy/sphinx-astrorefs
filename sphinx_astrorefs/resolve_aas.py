@@ -5,8 +5,8 @@ from sphinx.errors import ExtensionError
 aas_macros_dict= {
     '\\apjsupp' : 'Astrophys. J. Supp.',
     '\\apjs'    : 'Astrophys. J. Supp.',
-    '\\appjlett': 'Astrophys. J. Lett.',
-    '\\appjl'   : 'Astrophys. J. Lett.',
+    '\\apjlett': 'Astrophys. J. Lett.',
+    '\\apjl'   : 'Astrophys. J. Lett.',
     '\\apj'     : 'Astrophys. J.',
     '\\aj'      : 'Astron. J.',
     '\\mnras'   : 'Mon. Not. Roy. Astron. Soc.',
