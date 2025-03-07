@@ -14,7 +14,7 @@ Astro-style references in Sphinx documents
 
 ## Changelog
 
-* **2025/03/06**: Version 0.15: Fix the handling of the ``\apjl`` macro to correctly format the ApJL journal name.
+* **2025/03/06**: Version 0.15: Fix the handling of the ``\apjl`` macro to correctly format the ApJL journal name. Also fix some new syntax errors in the code for reformatting HTML and LaTeX output.
 * **2024/11/06**: Version 0.14: Fix id anchors in the reference lists, so links to references are correctly resolved again.
 * **2024/10/22**: Version 0.13: Make use of status_iterator compatible again with earlier Sphinx versions.
 * **2024/10/21**: Version 0.12: Tweak CSS to make reference section indentation look a bit better. More tweaking may be required for your theme, but this seems to work okay with many common themes.
